@@ -19,6 +19,8 @@ function installController() {
     wait
     initSetup
     wait
+    buildDocker
+    wait
     showFinishMessage
 }
 #
@@ -44,6 +46,9 @@ read -p '(ForkURL): ' fork
 sleep 2s
 echo " What github token would you like to use?"
 read -p '(Token): ' token
+sleep 2s
+echo " Does this device have an xArm processor?"
+read -p '(y/n): ' ARM
 echo " The Install Script Is About To Begin."
 sleep 3s
 clear
@@ -126,6 +131,38 @@ function initSetup() {
     eval $plugins
     wait
     sleep 5s
+}
+#
+## Here we run the docker build command
+function buildDocker() {
+    # First we move to the develop branch
+    echo "## Switching to Develop Branch............................."
+    devBranch='git checkout develop'
+    eval $devBranch
+    wait
+    # Then we move into the correct docker file.
+    btcFactory='cd Bitcoin-Factory'
+    eval $btcFactory
+    # If ARM processor we use ARM docker build
+    if [ "$ARM" = y ]
+    then
+        armDocker='cd ArmDockerBuild'
+        eval $armDocker
+        sleep 1s
+        buildDockerImageArm='docker build -t bitcoin-factory-machine-learning .'
+        eval $buildDockerImageArm
+        wait
+        moveBack='cd ..'
+        eval $moveBack
+    else
+        dockerBuild='cd DockerBuild'
+        eval $dockerBuild
+        wait
+        buildDockerImage='docker build -t bitcoin-factory-machine-learning .'
+        eval $buildDockerImage
+        wait
+        cd ..
+    fi
 }
 #
 ## Show a Finish Message
