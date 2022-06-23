@@ -144,7 +144,7 @@ function buildDocker() {
     btcFactory='cd Bitcoin-Factory'
     eval $btcFactory
     # If ARM processor we use ARM docker build
-    if [ "$ARM" = y ]
+    if [ "$ARM" = "y" ]
     then
         armDocker='cd ArmDockerBuild'
         eval $armDocker
