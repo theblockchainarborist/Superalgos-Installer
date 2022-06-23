@@ -27,31 +27,39 @@ function installController() {
 ## Here we will gather what system info we can as to install the correct stuff.
 function getSystemInfo() {
     #Name the current operating system.
-osName=$(uname)
+    osName=$(uname)
     #What bit is the system?
-osBit=$(getconf LONG_BIT)
-echo "  "
-echo "We are running on a "$osName" system that is "$osBit"bits from what we can tell."
-sleep 10s
+    osBit=$(getconf LONG_BIT)
+    echo "  "
+    echo "We are running on a "$osName" system that is "$osBit"bits from what we can tell."
+    sleep 10s
 }
 #
 # Here We Get The Needed User Info To Complete The Install.
 function getUserInfo() {
-echo " What is your github user name?"
-read -p '(UserName): ' username
-echo " Welcome "$username" "
-sleep 2s
-echo " What is the URL of your Superalgos Fork?"
-read -p '(ForkURL): ' fork
-sleep 2s
-echo " What github token would you like to use?"
-read -p '(Token): ' token
-sleep 2s
-echo " Does this device have an xArm processor?"
-read -p '(y/n): ' ARM
-echo " The Install Script Is About To Begin."
-sleep 3s
-clear
+    echo " Does this device have an xArm processor?"
+    read -p '(y/n): ' arm
+    if [ "$arm" = "y" ]
+    then
+        armP="y"
+        echo " We will use the xArm docker build file then."
+    else
+        armP="n"
+        echo "We will use the usual docker build file then."
+    fi
+    echo " What is your github user name?"
+    read -p '(UserName): ' username
+    echo " Welcome "$username" "
+    sleep 2s
+    echo " What is the URL of your Superalgos Fork?"
+    read -p '(ForkURL): ' fork
+    sleep 2s
+    echo " What github token would you like to use?"
+    read -p '(Token): ' token
+    sleep 2s
+    echo " The Install Script Is About To Begin."
+    sleep 3s
+    clear
 }
 #
 # Here We Give The User The Needed Permissions.
@@ -140,20 +148,20 @@ function buildDocker() {
     devBranch='git checkout develop'
     eval $devBranch
     wait
-    # Then we move into the correct docker file.
     btcFactory='cd Bitcoin-Factory'
     eval $btcFactory
-    # If ARM processor we use ARM docker build
-    if [ "$ARM" = "y" ]
+    wait
+    if [ "$armP" = "y" ]
     then
         armDocker='cd ArmDockerBuild'
         eval $armDocker
-        sleep 1s
+        wait
         buildDockerImageArm='docker build -t bitcoin-factory-machine-learning .'
         eval $buildDockerImageArm
         wait
         moveBack='cd ..'
         eval $moveBack
+        wait
     else
         dockerBuild='cd DockerBuild'
         eval $dockerBuild
@@ -162,6 +170,7 @@ function buildDocker() {
         eval $buildDockerImage
         wait
         cd ..
+        wait
     fi
 }
 #
