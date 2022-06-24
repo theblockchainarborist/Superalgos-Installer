@@ -43,6 +43,7 @@ function getUserInfo() {
     then
         armP="y"
         echo " We will use the xArm docker build file then."
+	sleep 5s
     else
         armP="n"
         echo "We will use the usual docker build file then."
@@ -106,7 +107,7 @@ then
     getDocker='sudo sh get-docker.sh'
     eval $getDocker
     wait
-fi    
+fi
 }
 #
 # Here We Will Clone Superalgos To The Home Directory.
@@ -143,15 +144,15 @@ function initSetup() {
 #
 ## Here we run the docker build command
 function buildDocker() {
-    # First we move to the develop branch
     echo "## Switching to Develop Branch............................."
+    echo "" $armP""
     devBranch='git checkout develop'
     eval $devBranch
     wait
     btcFactory='cd Bitcoin-Factory'
     eval $btcFactory
     wait
-    if [ "$armP" = "y" ]
+    if [ $armP = "y" ]
     then
         armDocker='cd ArmDockerBuild'
         eval $armDocker
