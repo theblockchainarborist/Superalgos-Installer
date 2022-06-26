@@ -142,6 +142,7 @@ function initSetup() {
     plugins='node setupPlugins "$username" "$token"'
     eval $plugins
     wait
+    echo "## Running updateGithubRepos"
     github='node updateGithubRepos'
     eval $github
     wait
