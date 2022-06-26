@@ -19,6 +19,8 @@ This script will:
  - Install Superalgos in the home directory
  - Run "node setup" script for you
  - Run "node setupPlugins" script for you
+ - Run "node updateGithubRepos" script for you
+ - Run the docker build command
 
 To start script you may need to change its access rights. To do this move to the scripts location and enter:
 ```
