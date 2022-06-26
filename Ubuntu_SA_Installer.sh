@@ -134,6 +134,10 @@ function initSetup() {
     homeS='cd ~/Superalgos'
     eval $homeS
     wait
+    echo "## Switching to Develop Branch............................."
+    devBranch='git checkout develop'
+    eval $devBranch
+    wait
     echo "Running node setup script.................................."
     setup='node setup'
     eval $setup
@@ -151,11 +155,6 @@ function initSetup() {
 #
 ## Here we run the docker build command
 function buildDocker() {
-    echo "## Switching to Develop Branch............................."
-    echo "" $armP""
-    devBranch='git checkout develop'
-    eval $devBranch
-    wait
     btcFactory='cd Bitcoin-Factory'
     eval $btcFactory
     wait
