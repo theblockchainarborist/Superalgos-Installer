@@ -142,6 +142,9 @@ function initSetup() {
     plugins='node setupPlugins "$username" "$token"'
     eval $plugins
     wait
+    github='node updateGithubRepos'
+    eval $github
+    wait
     sleep 5s
 }
 #
