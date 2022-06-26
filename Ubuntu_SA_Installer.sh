@@ -71,6 +71,9 @@ function giveUserPermissions() {
     givesudo='sudo usermod -aG sudo "$user"'
     eval $givesudo
     wait
+    giveDocker='sudo usermod -aG docker "$user"'
+    eval $giveDocker
+    wait
 }
 #
 # Here We Install The Main Dependencies.
@@ -157,7 +160,7 @@ function buildDocker() {
         armDocker='cd ArmDockerBuild'
         eval $armDocker
         wait
-        buildDockerImageArm='sudo docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImageArm='docker build -t bitcoin-factory-machine-learning .'
         eval $buildDockerImageArm
         wait
         moveBack='cd ..'
@@ -167,7 +170,7 @@ function buildDocker() {
         dockerBuild='cd DockerBuild'
         eval $dockerBuild
         wait
-        buildDockerImage='sudo docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImage='docker build -t bitcoin-factory-machine-learning .'
         eval $buildDockerImage
         wait
         cd ..
