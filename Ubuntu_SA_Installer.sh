@@ -157,7 +157,7 @@ function buildDocker() {
         armDocker='cd ArmDockerBuild'
         eval $armDocker
         wait
-        buildDockerImageArm='docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImageArm='sudo docker build -t bitcoin-factory-machine-learning .'
         eval $buildDockerImageArm
         wait
         moveBack='cd ..'
@@ -167,7 +167,7 @@ function buildDocker() {
         dockerBuild='cd DockerBuild'
         eval $dockerBuild
         wait
-        buildDockerImage='docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImage='sudo docker build -t bitcoin-factory-machine-learning .'
         eval $buildDockerImage
         wait
         cd ..
@@ -223,6 +223,9 @@ then
     then 
         docker="y"
         echo " OK, We will also install docker!"
+    else
+	docker="n"
+	echo " OK, We will not install docker then!"
     fi
     sleep 2s
 
