@@ -71,18 +71,14 @@ function giveUserPermissions() {
     givesudo='sudo usermod -aG sudo '$user' '
     eval $givesudo
     wait
-    echo " This user has been added to the sudo group"
-    sleep 5s
     giveDocker='sudo usermod -aG docker '$user' '
     eval $giveDocker
     wait
-    echo " This user has been added to the docker group"
-    sleep 5s
 }
 #
 # Here We Install The Main Dependencies.
 function getDependencies() {
-    echo "## First lets update........................................"
+    echo "## First Lets Update........................................"
     update='sudo apt update'
     eval $update
     wait
@@ -119,8 +115,8 @@ fi
 #
 # Here We Will Clone Superalgos To The Home Directory.
 function cloneFork() {
-    echo "## Preparing to clone your fork............................"
-    echo "# First we move to the home directory......................"
+    echo "## Preparing To Clone Your Fork............................"
+    echo "# First We Move To The Home Directory......................"
     movehome='cd ~'
     eval $movehome
     wait
@@ -129,32 +125,31 @@ function cloneFork() {
     eval $clone
     wait
     echo "## Fork Cloned"
-    sleep 5s
+    sleep 3s
 }
 #
 ## Here We Setup Superalgos By Utilizing The Existing Install Scripts.
 function initSetup() {
-    echo "## Preparing to setup Superalgos..........................."
+    echo "## Preparing To Setup Superalgos..........................."
     homeS='cd ~/Superalgos'
     eval $homeS
     wait
-    echo "## Switching to Develop Branch............................."
+    echo "## Switching To Develop Branch............................."
     devBranch='git checkout develop'
     eval $devBranch
     wait
-    echo "Running node setup script.................................."
+    echo "Running Node Setup Script.................................."
     setup='node setup'
     eval $setup
     wait
-    echo "## Running node setupPlugins script........................"
+    echo "## Running Node SetupPlugins Script........................"
     plugins='node setupPlugins "$username" "$token"'
     eval $plugins
     wait
-    echo "## Running updateGithubRepos"
+    echo "## Running updateGithubRepos Script........................"
     github='node updateGithubRepos'
     eval $github
     wait
-    sleep 5s
 }
 #
 ## Here we run the docker build command
@@ -177,7 +172,7 @@ function buildDocker() {
         dockerBuild='cd DockerBuild'
         eval $dockerBuild
         wait
-        buildDockerImage='docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImage='sg docker "docker build -t bitcoin-factory-machine-learning ."'
         eval $buildDockerImage
         wait
         cd ..
@@ -187,10 +182,11 @@ function buildDocker() {
 #
 ## Show a Finish Message
 function showFinishMessage() {
+    clear
     echo "############################################################"
     echo "# This Script has Finished Executing!                      #"
     echo "# Everything should be all setup for you!                  #"
-    echo "# To run Superalgos just use the node platform command!    #"
+    echo "# Please Restart For All Changes To Take Effect!           #"
     echo "############################################################"
     sleep 15s
 } 
@@ -219,7 +215,7 @@ sleep 12s
 clear
 # Here We Will Find Out What All The User Would Like Us To Do.
 echo " Would You Like Us To Install Superalgos?"
-echo " ***Note: Superalgos will be installed inside the home directory.***"
+echo " ***Note: Superalgos will be installed inside the home directory***"
 read -p '(y/n): ' choice
 if [ "$choice" = "y" ]
 then
@@ -246,10 +242,10 @@ else
     echo " OK"
     sleep 2s
     clear
-    echo " This script is only intended to install Superalgos."
-    echo " We are not sure what you would like us to do."
+    echo " This Script Is Only Intended To Install Superalgos."
+    echo " We Are Not Sure What You Would Like Us To Do."
     sleep 1s
-    echo " Please manually install Superalgos for custom install options."
+    echo " Please Manually Install Superalgos For Custom Install Options."
     echo "  "
     echo "  "
 fi
