@@ -68,12 +68,16 @@ function giveUserPermissions() {
     user=$(whoami)
     echo "$user"
     echo " Please Input Your User Password To Allow For sudo Commands"
-    givesudo='sudo usermod -aG sudo "$user"'
+    givesudo='sudo usermod -aG sudo ${user}'
     eval $givesudo
     wait
-    giveDocker='sudo usermod -aG docker "$user"'
+    echo " This user has been added to the sudo group"
+    sleep 5s
+    giveDocker='sudo usermod -aG docker ${user}'
     eval $giveDocker
     wait
+    echo " This user has been added to the docker group"
+    sleep 5s
 }
 #
 # Here We Install The Main Dependencies.
