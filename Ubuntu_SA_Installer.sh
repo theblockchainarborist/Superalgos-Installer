@@ -65,15 +65,15 @@ function getUserInfo() {
 #
 # Here We Give The User The Needed Permissions.
 function giveUserPermissions() {
-    user=$(whoami)
+    user="whoami"
     echo "$user"
     echo " Please Input Your User Password To Allow For sudo Commands"
-    givesudo='sudo usermod -aG sudo ${user}'
+    givesudo='sudo usermod -aG sudo "$user"'
     eval $givesudo
     wait
     echo " This user has been added to the sudo group"
     sleep 5s
-    giveDocker='sudo usermod -aG docker ${user}'
+    giveDocker='sudo usermod -aG docker "$user"'
     eval $giveDocker
     wait
     echo " This user has been added to the docker group"
@@ -187,7 +187,6 @@ function buildDocker() {
 #
 ## Show a Finish Message
 function showFinishMessage() {
-    clear
     echo "############################################################"
     echo "# This Script has Finished Executing!                      #"
     echo "# Everything should be all setup for you!                  #"
@@ -201,26 +200,26 @@ clear
 #
 # Welcome Message
 echo "----------------------------------------"
-echo "|  Welcome to the Superalgos Install   |"
+echo "|  Welcome To The Superalgos Install   |"
 echo "----------------------------------------"
 echo " "
 echo " "
 sleep 2s
-echo "This script is intened to be used to install Superalgos on Ubuntu and *should* work on any debain based distros"
-echo "This is A convience installation method"
-echo "After a few questions this script will:"
+echo "This Script is Intened To Be Used To Install Superalgos on Ubuntu and *Should* Work On Any Debain Based Distro"
+echo "This is A Convience Installation Method"
+echo "After A Few Questions This Script Will:"
 echo " "
-echo " .........Clone your Superalgos Fork to this machine"
+echo " .........Clone Your Superalgos Fork To This Machine"
 echo " .........Setup Superalgos Plugins"
 echo " .........Optional Docker Install Option For Bitcoin-Factory"
 echo " "
 echo " "
 echo " "
-sleep 7s
+sleep 12s
 clear
 # Here We Will Find Out What All The User Would Like Us To Do.
-echo " Would you like us to install Superalgos?"
-echo " Note: Superalgos will be installed inside the home directory."
+echo " Would You Like Us To Install Superalgos?"
+echo " ***Note: Superalgos will be installed inside the home directory."
 read -p '(y/n): ' choice
 if [ "$choice" = "y" ]
 then
