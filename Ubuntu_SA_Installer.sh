@@ -32,7 +32,7 @@ function getSystemInfo() {
     osBit=$(getconf LONG_BIT)
     echo "  "
     echo "We are running on a "$osName" system that is "$osBit"bits from what we can tell."
-    sleep 10s
+    sleep 5s
 }
 #
 # Here We Get The Needed User Info To Complete The Install.
@@ -65,7 +65,7 @@ function getUserInfo() {
 #
 # Here We Give The User The Needed Permissions.
 function giveUserPermissions() {
-    user='whoami'
+    user=$(whoami)
     echo "$user"
     echo " Please Input Your User Password To Allow For sudo Commands"
     givesudo='sudo usermod -aG sudo "$user" '
