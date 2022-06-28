@@ -65,15 +65,15 @@ function getUserInfo() {
 #
 # Here We Give The User The Needed Permissions.
 function giveUserPermissions() {
-    user="whoami"
-    echo "$user"
+    thisuser="whoami"
+    echo "$thisuser"
     echo " Please Input Your User Password To Allow For sudo Commands"
-    givesudo='sudo usermod -aG sudo "$user"'
+    givesudo='sudo usermod -aG sudo "$thisuser" '
     eval $givesudo
     wait
     echo " This user has been added to the sudo group"
     sleep 5s
-    giveDocker='sudo usermod -aG docker "$user"'
+    giveDocker='sudo usermod -aG docker "$thisuser" '
     eval $giveDocker
     wait
     echo " This user has been added to the docker group"
@@ -219,7 +219,7 @@ sleep 12s
 clear
 # Here We Will Find Out What All The User Would Like Us To Do.
 echo " Would You Like Us To Install Superalgos?"
-echo " ***Note: Superalgos will be installed inside the home directory."
+echo " ***Note: Superalgos will be installed inside the home directory.***"
 read -p '(y/n): ' choice
 if [ "$choice" = "y" ]
 then
