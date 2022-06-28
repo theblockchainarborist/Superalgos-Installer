@@ -66,14 +66,17 @@ function getUserInfo() {
 # Here We Give The User The Needed Permissions.
 function giveUserPermissions() {
     user=$(whoami)
+    wait
     echo "$user"
     echo " Please Input Your User Password To Allow For sudo Commands"
-    givesudo='sudo usermod -aG sudo "$user" '
+    givesudo='sudo usermod -aG sudo '$user' '
+    wait
     eval $givesudo
     wait
     echo " This user has been added to the sudo group"
     sleep 5s
-    giveDocker='sudo usermod -aG docker "$user" '
+    giveDocker='sudo usermod -aG docker '$user' '
+    wait
     eval $giveDocker
     wait
     echo " This user has been added to the docker group"
