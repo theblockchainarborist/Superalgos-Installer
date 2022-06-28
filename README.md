@@ -21,6 +21,8 @@ This script will:
  - Run "node setupPlugins" script for you
  - Run "node updateGithubRepos" script for you
  - Run the docker build command
+ 
+**After script completion please restart your system for all changes to take effect!**
 
 To start script you may need to change its access rights. To do this move to the scripts location and enter:
 ```
