@@ -31,31 +31,31 @@ function getSystemInfo() {
     #What bit is the system?
     osBit=$(getconf LONG_BIT)
     echo "  "
-    echo "We are running on a "$osName" system that is "$osBit"bits from what we can tell."
+    echo "We Are Running On A "$osName" System That Is "$osBit"Bits From What We Can Tell."
     sleep 5s
 }
 #
 # Here We Get The Needed User Info To Complete The Install.
 function getUserInfo() {
-    echo " Does this device have an xArm processor?"
+    echo " Does This Device Have An xArm Processor?"
     read -p '(y/n): ' arm
     if [ "$arm" = "y" ]
     then
         armP="y"
-        echo " We will use the xArm docker build file then."
+        echo " We Will Use The xArm Docker Build File Then."
 	sleep 5s
     else
         armP="n"
-        echo "We will use the usual docker build file then."
+        echo "We Will Use The Usual Docker Build File Then."
     fi
-    echo " What is your github user name?"
+    echo " What Is Your Github Username?"
     read -p '(UserName): ' username
     echo " Welcome "$username" "
     sleep 2s
-    echo " What is the URL of your Superalgos Fork?"
+    echo " What Is The URL Of Your Superalgos Fork?"
     read -p '(ForkURL): ' fork
     sleep 2s
-    echo " What github token would you like to use?"
+    echo " What Github Token Would You Like To Use?"
     read -p '(Token): ' token
     sleep 2s
     echo " The Install Script Is About To Begin."
@@ -66,20 +66,20 @@ function getUserInfo() {
 # Here We Give The User The Needed Permissions.
 function giveUserPermissions() {
     user=$(whoami)
-    wait
     echo "$user"
     echo " Please Input Your User Password To Allow For sudo Commands"
     givesudo='sudo usermod -aG sudo '$user' '
-    wait
     eval $givesudo
     wait
     echo " This user has been added to the sudo group"
     sleep 5s
     giveDocker='sudo usermod -aG docker '$user' '
-    wait
     eval $giveDocker
     wait
     echo " This user has been added to the docker group"
+    updateGroup='newgrp docker'
+    eval $updateGroup
+    wait
     sleep 5s
 }
 #
