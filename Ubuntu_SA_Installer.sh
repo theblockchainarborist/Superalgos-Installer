@@ -77,9 +77,6 @@ function giveUserPermissions() {
     eval $giveDocker
     wait
     echo " This user has been added to the docker group"
-    updateGroup='newgrp docker'
-    eval $updateGroup
-    wait
     sleep 5s
 }
 #
@@ -170,7 +167,7 @@ function buildDocker() {
         armDocker='cd ArmDockerBuild'
         eval $armDocker
         wait
-        buildDockerImageArm='docker build -t bitcoin-factory-machine-learning .'
+        buildDockerImageArm='sg docker "docker build -t bitcoin-factory-machine-learning ."'
         eval $buildDockerImageArm
         wait
         moveBack='cd ..'
